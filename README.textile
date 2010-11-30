@@ -6,7 +6,7 @@ The specific use case I needed this for was quite simply to have my Google conta
 
 h2. Changes from GCALDaemon
 
-* Stripped all of the GMail interfacing and replaced it with the clean Gmail 2.0 Java APIs which cut huge amounts of code out, most importantly the bits that were doing raw HTTP reads/writes to talk to GMail!
+* I've modified the code to play nicely with GData 2.0. I deleted pretty much everything that was there for Google authentication and CSV parsing and replaced it with the ContactsService class (which is the right way to do it now). I also got rid of all the CSV parsing code and instead interact with the ContactFeed and ContactEntry classes and just cache the contacts as a serialized ArrayList of GmailContact instances (as well as the XML and HTML versions). This should be a lot, lot more future proof and maintainable as it shields the app from directly parsing HTTP and worrying about Google's implementation details.
 * Converted to Maven for all dependencies
 * Improved a few algorithms and LDAP field mappings to improve performance
 
