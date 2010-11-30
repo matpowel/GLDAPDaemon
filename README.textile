@@ -1,0 +1,23 @@
+h1. GLDAPDaemon
+
+This is quite simply a form of the apparently completely dead "GCALDaemon":http://gcaldaemon.sourceforge.net/ project with all of the Calendar stuff ripped out (Calendar sync is being done nicely in most OS's with Google Cal now anyway) and only the LDAP goodness retained.
+
+The specific use case I needed this for was quite simply to have my Google contacts served via LDAP. Google do not seem to support this and haven't announced any plans. I'd much rather they provide CardDAV anyway but despite supporting CalDAV everyone seems to be ignoring CardDAV. Even though iCal now supports Google sync, I didn't want full sync, I have a number of Google Apps accounts with various businesses I'm involved with, some of which are sync'd from a CRM system, and I don't want a local copy of their contacts. I simply to have them searchable in Mac Mail, iCal and Address Book like they are on my iPhone.
+
+h2. Changes from GCALDaemon
+
+* Stripped all of the GMail interfacing and replaced it with the clean Gmail 2.0 Java APIs which cut huge amounts of code out, most importantly the bits that were doing raw HTTP reads/writes to talk to GMail!
+* Converted to Maven for all dependencies
+* Improved a few algorithms and LDAP field mappings to improve performance
+
+h2. TODO
+
+* SSL and Authentication! In one company, I want to Sync our CRM contacts with a GMail account and the GMail account with a central server running GLDAPDaemon so everyone can have the LDAP contact lookup of the business contacts. Of course, this needs to be encrypted and authenticated.
+* Clean up the license files (the GCALDaemon project is ostensibly completely dead), put this under a new license or whatever needs to happen
+* Improve the mapping of GMail fields to LDAP lookup fields
+
+h2. Known Issues
+
+* When running on a Mac Book Pro laptop, occasionally when suspending and resuming (perhaps when the network is not available on resume?) it will end up in a tight loop using 100% CPU. The only solution is to restart the java process. I strongly dislike the tight for loops used throughout the code but don't have time to review them all.
+* No encryption or authentication
+
